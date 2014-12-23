@@ -1,5 +1,6 @@
 Uniza Kalendár skúšok
 =====================
+[![Build Status](https://travis-ci.org/Unlink/Uniza-Kalendar-Skusok.svg)](https://travis-ci.org/Unlink/Uniza-Kalendar-Skusok)
 
 Nástroj na správu skúškových termínov študentov Žilinskej univerzity
 
