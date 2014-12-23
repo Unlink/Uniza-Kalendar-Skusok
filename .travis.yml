@@ -5,3 +5,5 @@ jdk:
   - oraclejdk7
   - openjdk7
 
+notifications:
+  email: true
