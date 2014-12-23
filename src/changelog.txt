@@ -1,0 +1,31 @@
+Verzia 1.5
+    * Filter predmetov, ktoré sú už spravené
+	* Menšie fixy zobrazenie
+Verzia 1.4
+    * Opravené autoscrool na spodok v zozname prihlásených študentov a v changelogu
+    * GUI vylepšenia
+    * Označenie novo pridaných termínov od posledného prihlásenia
+    * Oprava filtrovania predmetov podľa kategórii
+    * Integráracia bug reporting systému
+    * Opravené kódovanie znakov v lokálnych zdrojoch
+Verzia 1.3
+    * Ukladanie a automatické vyplnanie posledného použitého mena
+    * Ukladanie hesiel
+Verzia 1.2
+    * Refaktoring kódu
+    * Upravená práca s vláknami
+Verzia 1.1
+    * Úprava spracovávania zdrojov
+Verzia 1.0.1
+    * Oprava problémov s príhlásením
+Verzia 1.0
+    * Vyladená stabilita programu
+    * Reselase verzia
+Verzia 0.3
+    * Oddelenie HTTP Clienta do vlastnej knižnice
+    * Designové úpravy
+Verzia 0.2
+    * Pridaná možnosť prihlásenia/odhlásenia
+    * Vyhľadávanie zapísaných termínov pre iných užívateľov
+Verzia 0.1 
+    * Prvotná verzia programu
