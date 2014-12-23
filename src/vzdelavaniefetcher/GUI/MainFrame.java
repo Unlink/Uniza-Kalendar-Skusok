@@ -24,7 +24,7 @@ import vzdelavaniefetcher.StudijneVysledky;
 import vzdelavaniefetcher.tools.ResourceManager;
 import vzdelavaniefetcher.tools.SimpleSerializedEncrypredStringMap;
 
-import static vzdelavaniefetcher.tools.ThreadingTools.runInThreadingPool2;
+import static vzdelavaniefetcher.tools.ThreadingTools.runInThreadingPool;
 import static vzdelavaniefetcher.tools.ThreadingTools.runOnUIThread;
 
 /**
