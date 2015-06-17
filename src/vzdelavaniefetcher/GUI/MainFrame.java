@@ -13,6 +13,8 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.prefs.Preferences;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -21,6 +23,7 @@ import vzdelavaniefetcher.Fetcher;
 import vzdelavaniefetcher.FetcherListner;
 import vzdelavaniefetcher.Predmet;
 import vzdelavaniefetcher.StudijneVysledky;
+import vzdelavaniefetcher.VzdelavanieLogin;
 import vzdelavaniefetcher.tools.ResourceManager;
 import vzdelavaniefetcher.tools.SimpleSerializedEncrypredStringMap;
 
@@ -289,7 +292,8 @@ public class MainFrame extends javax.swing.JFrame implements FetcherListner {
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         try {
-            Desktop.getDesktop().browse(new URI("https://vzdelavanie.uniza.sk/vzdelavanie/"));
+			VzdelavanieLogin loginer = new VzdelavanieLogin(Fetcher.dajInstanciu().getClient());
+            Desktop.getDesktop().browse(loginer.createUri());
         } catch (IOException | URISyntaxException ex) {
             JOptionPane.showMessageDialog(this, "Niečo sa nepodarilo ;)");
         }

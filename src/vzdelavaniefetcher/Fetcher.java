@@ -67,6 +67,18 @@ public class Fetcher {
         }
     }
 
+	public HttpClient getClient() {
+		return aClient;
+	}
+
+	public String getMeno() {
+		return aMeno;
+	}
+
+	public String getHeslo() {
+		return aHeslo;
+	}
+	
     /**
      * Overí či je uživateľ prihlásený
      *

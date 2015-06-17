@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+	<body>
+		<form action="https://vzdelavanie.uniza.sk/vzdelavanie/login.php" method="post" id="myform" target="frame" style="display: block; position: absolute; top: -99999px; left: -99999px;">
+			<input type="text" name="meno" value="{{NAME}}" />
+			<input type="password" name="heslo" value="{{PASSWORD}}" />
+		</form>
+
+		<iframe name="frame" src="" style="width: 600px; height: 100px; border: 0"></iframe>
+		<a href="https://vzdelavanie.uniza.sk/vzdelavanie/">https://vzdelavanie.uniza.sk/vzdelavanie/</a>
+		<script type="text/javascript">
+			document.getElementById('myform').submit();
+			document.getElementsByTagName('iframe')[0].onload = function() {
+				alert(document.getElementsByTagName('iframe')[0].src);
+				//location.replace('https://vzdelavanie.uniza.sk/vzdelavanie/');
+				//document.getElementsByTagName('iframe')[0].src = 'https://vzdelavanie.uniza.sk/vzdelavanie/predmety_s.php';
+			}
+		</script>
+	</body>
+</html>
