@@ -100,6 +100,7 @@ public class MainFrame extends javax.swing.JFrame implements FetcherListner {
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
 
@@ -236,6 +237,7 @@ public class MainFrame extends javax.swing.JFrame implements FetcherListner {
 
         jMenu3.setText("Tools");
         jMenu3.setToolTipText("");
+        jMenu3.setEnabled(false);
 
         jMenuItem4.setText("Vyhľadávanie");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
@@ -244,6 +246,14 @@ public class MainFrame extends javax.swing.JFrame implements FetcherListner {
             }
         });
         jMenu3.add(jMenuItem4);
+
+        jMenuItem5.setText("Študijne výsledky");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem5);
 
         jMenu3.setVisible(false);
 
@@ -347,6 +357,7 @@ public class MainFrame extends javax.swing.JFrame implements FetcherListner {
                                 jPanel1.validate();
                                 pack();
                                 jMenu3.setVisible(true);
+								jMenu3.setEnabled(true);
                                 validate();
                             }
                         }, false);
@@ -400,6 +411,10 @@ public class MainFrame extends javax.swing.JFrame implements FetcherListner {
             jCheckBox1.setSelected(false);
         }
     }//GEN-LAST:event_jTextField1FocusLost
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        new vzdelavaniefetcher.GUI.StudijneVysledky(this, aVysledky);
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     /**
      * Metoda na uloženie použitého hesla
@@ -482,6 +497,7 @@ public class MainFrame extends javax.swing.JFrame implements FetcherListner {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPasswordField jPasswordField1;
