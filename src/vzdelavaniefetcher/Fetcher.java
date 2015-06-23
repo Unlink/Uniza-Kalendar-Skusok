@@ -6,6 +6,7 @@ package vzdelavaniefetcher;
 
 import com.unlink.common.HttpClient.BasicNameValuePair;
 import com.unlink.common.HttpClient.HttpClient;
+import com.unlink.common.HttpClient.IHttpClient;
 import com.unlink.common.bugTrackerLogger.BugTrackingLoger;
 import java.io.File;
 import java.io.IOException;
@@ -27,7 +28,8 @@ import vzdelavaniefetcher.tools.SimpleSerializedMappedSet;
 public class Fetcher {
 
 	private static Fetcher aInstance;
-	private HttpClient aClient;
+	private static IHttpClient aDefaultClient;
+	private IHttpClient aClient;
 
 	private String aMeno;
 	private String aHeslo;
@@ -45,9 +47,16 @@ public class Fetcher {
 		}
 		return aInstance;
 	}
+	
+	public static void setDefaultClient(IHttpClient paClient) {
+		if (aInstance != null) {
+			throw new IllegalStateException("Fetcher inštancia je už vytvorená, teraz už nieje možné nastaviť http clienta");
+		}
+		aDefaultClient = paClient;
+	}
 
 	private Fetcher() {
-		aClient = new HttpClient();
+		aClient = (aDefaultClient != null) ? aDefaultClient : new HttpClient();
 		aHeslo = null;
 		aMeno = null;
 

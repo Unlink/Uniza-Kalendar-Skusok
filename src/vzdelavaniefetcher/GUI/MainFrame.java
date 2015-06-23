@@ -4,6 +4,7 @@
  */
 package vzdelavaniefetcher.GUI;
 
+import cachedHttpClient.HttpClient;
 import com.unlink.common.bugTrackerLogger.BugTrackingLoger;
 import java.awt.Desktop;
 import java.awt.GridLayout;
@@ -59,7 +60,7 @@ public class MainFrame extends javax.swing.JFrame implements FetcherListner {
 
         //Vloženie posledneho lognuteho usera
         String username = aNastavenia.get(LAST_USED_USERNAME, "");
-        jTextField1.setText(aNastavenia.get(LAST_USED_USERNAME, ""));
+        jTextField1.setText(username);
         if (!username.isEmpty() && aStoredPass.containsKey(username)) {
             jPasswordField1.setText(DEFAULT_PASSWORD_STRING);
             jCheckBox1.setSelected(true);
@@ -70,6 +71,9 @@ public class MainFrame extends javax.swing.JFrame implements FetcherListner {
         if (ResourceManager.readResourceToString("version.txt").contains("dev")) {
             BugTrackingLoger.injectInMenu(jMenuBar1);
         }
+		else {
+			jCheckBox2.setVisible(false);
+		}
     }
 
     /**
@@ -93,6 +97,7 @@ public class MainFrame extends javax.swing.JFrame implements FetcherListner {
         jProgressBar1 = new javax.swing.JProgressBar();
         jLabel6 = new javax.swing.JLabel();
         jCheckBox1 = new javax.swing.JCheckBox();
+        jCheckBox2 = new javax.swing.JCheckBox();
         jPanel1 = new JPanelBacgrounded("vzdelavaniefetcher.GUI.images.background.jpg");
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -151,6 +156,9 @@ public class MainFrame extends javax.swing.JFrame implements FetcherListner {
         jCheckBox1.setText("Zapamätať prihlasovacie údaje");
         jCheckBox1.setOpaque(false);
 
+        jCheckBox2.setText("Dev login");
+        jCheckBox2.setOpaque(false);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -159,14 +167,6 @@ public class MainFrame extends javax.swing.JFrame implements FetcherListner {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jCheckBox1)
-                        .addGap(0, 0, Short.MAX_VALUE))))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jLabel3)
                 .addGap(0, 0, Short.MAX_VALUE))
@@ -183,6 +183,16 @@ public class MainFrame extends javax.swing.JFrame implements FetcherListner {
                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPasswordField1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jCheckBox2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jCheckBox1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -199,13 +209,16 @@ public class MainFrame extends javax.swing.JFrame implements FetcherListner {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCheckBox1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jCheckBox2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(jButton1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel6))
+                .addComponent(jLabel6)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -323,6 +336,10 @@ public class MainFrame extends javax.swing.JFrame implements FetcherListner {
         }
         final String password = pass;
         final boolean savePassword = jCheckBox1.isSelected();
+		
+		if (jCheckBox2.isSelected()) {
+			Fetcher.setDefaultClient(new HttpClient(new File("devCache"), null));
+		}
 
         runInThreadingPool(new Runnable() {
             @Override
@@ -483,6 +500,7 @@ public class MainFrame extends javax.swing.JFrame implements FetcherListner {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

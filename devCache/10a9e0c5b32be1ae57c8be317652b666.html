@@ -1,0 +1,335 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+  "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=windows-1250">
+	<meta name="robots" content="nofollow">
+	<link rel="StyleSheet" href="styles.css" type="text/css">
+        <link rel="StyleSheet" href="js/css_base/jquery.ui.all.css" type="text/css">
+	<title>Vzdelávanie</title>
+	<link rel="shortcut icon" href="/favicon.ico">
+	<script type="text/javascript" src="js/jquery-1.10.1.js"></script>
+    <script type="text/javascript" src="js/jquery_ui.min.js"></script>
+</head>
+
+<body>
+
+<table width="100%">
+<tr>
+	<td align="left">
+		<a href="index.php"><img src="img/uvod_orange.gif" width="35" height="35" border="0" alt="Úvodná stránka"></a>
+		<a href="http://www.uniza.sk" target="_blank"><img src="img/internet.gif" width="35" height="35" border="0" alt="Internet"></a>
+		<a href="http://intranet.uniza.sk" target="_blank"><img src="img/intramenu.gif" width="35" height="35" border="0" alt="Intranet"></a>
+	</td>
+	<td align="center">
+         <a href="http://uniapps.eu/appDownload/whereSK.html"><img src="banner/bannerUniapps.png" border="0"></a>
+        
+	 <!-- www.suebooks.sk -->
+<a href="http://www.suebooks.sk/" target="_blank"><img src="/vzdelavanie/banner/SUEBOOKS_BANER.jpg"  border="0"></a>	</td>
+	<td align="right">
+		Dnes je utorok, <b>23.6.2015</b><br>Meniny má <b>Sidónia</b>	</td>
+</tr>
+</table>
+
+
+<table class="SRH-inp" width="100%" cellspacing="0" cellpadding="3"><tr><td>
+	<table cellpadding="0" cellspacing="0" border="0" width="100%">
+	<tr>
+		<td colspan="2" height="125" background="img/logo_vzdel.png"></td>
+	</tr>
+	<tr>
+		<td width="220" background="img/menu_orange.gif" height="35"></td>
+		<td height="35">
+			<table class="tform" width="100%" height="35"><form method="get" action="index.php" name="akrk">
+			<tr valign="middle"><td align="center"><b>Bc. Michal Ďuračík</b> (<b><a href="multi.php" title="Viaceré osobné čísla">000000</a></b>, 5ZSA12)&nbsp;&nbsp;<a href="heslo.php" title="Zmena hesla">Zmena hesla</a></td><td align="right"><b><a href="http://vzdelavanie.uniza.sk/vzdelavanie/logout.php" title="Odhlásiť používateľa">Odhlásiť</a></b>&nbsp;</td><td align="center"><label><b>Akademický rok:</b> <select name="ra" onChange="akrk.submit()"><option value="2010">2010 / 2011<option value="2011">2011 / 2012<option value="2012">2012 / 2013<option value="2013">2013 / 2014<option value="2014" selected>2014 / 2015<option value="2015">2015 / 2016</select></label></td>			</tr>
+			</form></table>
+		</td>
+	</tr><script language="JavaScript">
+
+ function odhlasenie(param) {
+   if (confirm("Naozaj sa chcete odhlásiť ?")) {
+      window.location.href='terminy_uid.php?pid=' + param;
+   }
+ }
+
+</script><script language="JavaScript">
+
+//##################################################################################################################################
+
+var AgntUsr=navigator.userAgent.toLowerCase();
+var DomYes=(document.getElementById)?1:0;			// DOM
+var NavYes=(AgntUsr.indexOf('mozilla')!=-1&&AgntUsr.indexOf('compatible')==-1)?1:0;	// Netscape
+var ExpYes=(AgntUsr.indexOf('msie')!=-1)?1:0;				// IExplorer
+var Opr=(AgntUsr.indexOf('opera')!=-1||AgntUsr.indexOf('opera')!=-1)?1:0;	// Opera
+var DomNav=(DomYes&&NavYes)?1:0;					// Netscape 6 up
+var DomExp=(DomYes&&ExpYes)?1:0;					// IExplorer 5 up
+var DomOpr=(DomYes&&Opr)?1:0;					// Opera up
+var Nav4=(NavYes&&!DomYes&&document.layers)?1:0;			// Netscape 4
+var Exp4=(ExpYes&&!DomYes&&document.all)?1:0;				// IExplorer 4
+
+function show_p(w, id_) {
+	if (w)
+	{show_vrstva(1, id_);}
+	else
+	{show_vrstva(0, id_);}
+}
+
+//##################################################################################################################################
+
+function show_p_(w, id_, form_) {
+	if (w)
+	{show_vrstva(1, id_);}
+	else
+	{
+	show_vrstva(0, id_);
+	eval("document." +form_ + "." + id_ + ".value='';");
+	}
+   }
+
+//##################################################################################################################################
+
+function show_vrstva(z, id_)
+{
+
+    if(z) {
+		visi = 'visible';
+		disp = 'inline';
+	}
+	else {
+		visi = 'hidden';
+		disp = 'none';
+	}
+	
+ if (DomNav) {		     
+    document.getElementById(id_).style.visibility = visi;	
+	document.getElementById(id_).style.display = disp;
+	 }
+ else if ((DomExp)  || (DomOpr)) {
+    document.all[id_].style.visibility = visi;
+	document.all[id_].style.display = disp;
+ }  else{			   			    
+
+ }
+}
+
+//##################################################################################################################################
+
+function show(id_)
+{
+kalendar (id_);
+}
+
+function pocet_dni(mm, yyyy)
+{
+var mDay;
+	if((mm == 3) || (mm == 5) || (mm == 8) || (mm == 10)){
+		mDay = 30;
+  	}
+  	else{
+  		mDay = 31
+  		if(mm == 1){
+   			if (yyyy/4 - parseInt(yyyy/4) != 0) {
+   				mDay = 28
+   			}
+		   	else{
+   				mDay = 29
+  			}
+		}
+  }
+return mDay;
+}
+
+//##################################################################################################################################
+
+function kalendar(id_, form_id, form_name, rok_, mesiac_, kal_, zobr_, typ, link_)
+{
+if (zobr_) {zobr_view='<a href=\"javascript: show_vrstva(0, \'' + id_+ '\')\"><b>x</b></a>'; zobr_view_=true;} else {zobr_view=''; zobr_view_=false;}
+var datum_ = new Date();
+var rok  = datum_.getFullYear();
+var mesiac = datum_.getMonth();
+var den = datum_.getDate(); 
+var out_kalendar = '';
+var j = 1;
+var k = 0;
+var tyzden = new Array(); tyzden[1]='';
+var mesiac_n= new Array ("Január", "Február", "Marec", "Apríl", "Máj", "Jún", "Júl", "August", "September", "Október", "November", "December");
+
+if ((rok_==0)&&(mesiac_==0)) {var rok_prac=rok; var mesiac_prac=mesiac;} else {rok_prac=rok_; mesiac_prac=mesiac_;}
+
+if (mesiac_prac==0) {
+  mesiac_pred=11;
+  rok_pred=rok_prac - 1;
+  mesiac_po=mesiac_prac + 1;
+  rok_po=rok_prac;
+} else if (mesiac_prac==11) {
+  mesiac_pred=mesiac_prac - 1;
+  rok_pred=rok_prac;
+  mesiac_po=0;
+  rok_po=rok_prac + 1;
+} else {
+  mesiac_pred=mesiac_prac - 1;
+  rok_pred=rok_prac;
+  mesiac_po=mesiac_prac + 1;
+  rok_po=rok_prac;
+}
+var pocet = pocet_dni(mesiac_prac, rok_prac);
+var mesiac_prac_=mesiac_prac+1;
+var datum_p = Date.UTC(rok, mesiac, den, 0, 0, 0);
+for (i=1; i<=pocet; i++) {
+ var datum_d = new Date(rok_prac, mesiac_prac, i, 0, 0, 0);
+
+ if ((datum_d.getYear() == rok)&&(datum_d.getMonth() == mesiac)&&(datum_d.getDate() == den)) {class_='class=\"hdr\"';} 
+ else if ((datum_d.getDay() == 6) || (datum_d.getDay() == 0)) {class_='class=\"txt2\"';} else {class_='';}
+ if (kal_==0) 
+ i_ = typ ? '<a href=\"javascript:datum(\'' + id_ + '\', \'' + form_id + '\', \'' + form_name + '\', \''+ i + '.' + mesiac_prac_  + '.' + rok_prac + '\', ' + zobr_view_ +');\">' + i +  '</a>' :
+	             '<a href=\"' + link_ + '&datum=' +  i + '.' + mesiac_prac_  + '.' + rok_prac +  '\">' + i + '</a>';
+ else {
+  datum_p_ = Date.UTC(rok_prac, mesiac_prac, i, 0, 0, 0);
+  v = (datum_p_ - datum_p) / 86400000;
+  if (v >= kal_) {
+	  i_ = typ ? '<a href=\"javascript:datum(\'' + id_ + '\', \'' + form_id + '\', \'' + form_name + '\', \''+ i + '.' + mesiac_prac_  + '.' + rok_prac + '\', ' + zobr_view_ +');\">' + i +  '</a>' :
+	             '<a href=\"' + link_ + '&datum=' +  i + '.' + mesiac_prac_  + '.' + rok_prac +  '\">' + i + '</a>';
+	  } else {i_ = i;}
+ }
+ tyzden[j] += '<td ' + class_ + '>' + i_  +  '</td>';
+ k++;
+ if ((datum_d.getDay()==0) || (i==pocet)) {
+  stlpec = 7 - k;
+  if ((k < 7) && (j==1)) {  tyzden[j] = '<td colspan=\"' + stlpec + '\"></td>\n' + tyzden[j]; }
+    else if  ((k < 7) && (j>1)) {tyzden[j] =  tyzden[j] + '<td colspan=\"' + stlpec + '\"></td>\n'; }  
+	out_kalendar += '<tr>' + tyzden[j] + '</tr>\n';
+    j++;
+	tyzden[j]='';
+	k = 0;
+ } 
+}
+var myDIV = document.getElementById(id_);
+var out_str='<table  bgcolor=\"#ffffff\" class=\"SRH-inp2\"><tr><td><table><tr><td colspan=\"7\" align=\"right\">' + zobr_view + '</td></tr><tr class=\"hdr\"><td colspan=\"7\" align=\"center\"><a href=\"javascript:kalendar(\'' + id_ + '\', \'' + form_id + '\', \'' + form_name + '\', ' + rok_pred +', ' + mesiac_pred + ', ' + kal_+ ', '  + zobr_view_ + ', '  + typ + ', \'' + link_ + '\');\">< </a>' + mesiac_n[mesiac_prac] + ' ' + rok_prac +  ' <a href=\"javascript:kalendar(\'' + id_ + '\', \'' + form_id + '\', \'' + form_name + '\', ' + rok_po +', ' + mesiac_po + ', ' + kal_+ ', ' + zobr_view_ + ', '  + typ + ', \'' + link_ + '\' );\"> ></a></td></td></tr><tr><td>Po</td><td>Ut</td><td>Str</td><td>Št</td><td>Pia</td><td class=\"txt2\">So</td><td class=\"txt2\">Ne</td></tr>' + out_kalendar + '</table></td></tr></table>';
+myDIV.style.position = 'absolute';
+myDIV.innerHTML = out_str;
+//	myDIV.style.top = parseInt(myDIV.style.top.replace('px', '')) - 20;
+//	myDIV.style.left = parseInt(myDIV.style.left.replace('px', '')) + 2;
+show_vrstva(1, id_);
+}
+
+//##################################################################################################################################
+
+function datum (id_, form_id, form_name, dat_, zobr_) {
+	 eval('document.' + form_name + '.' + form_id + '.value=\'' + dat_ + '\';'); 
+	 eval('document.' + form_name + '.' + form_id +'.focus();');
+	 if (zobr_) { show_vrstva(0, id_);}
+}
+
+//##################################################################################################################################
+
+ function pole_up (id_, form_name, link_) {
+  eval("document."  + form_name + "." + id_ + ".blur()");
+}
+
+//##################################################################################################################################
+
+</script><tr>
+<td width="220" class="menu1">
+	<table align="center" width="95%" cellspacing="0" cellpadding="0">
+	<tr>
+		<td height="25" width="220" class="menu3">
+			&nbsp;Menu
+		</td>
+	</tr>
+	<tr>
+		<td class="menu2">
+			<br><a href="plany.php" title="Študijné programy">Študijné programy</a><br><a href="download/doc/KalendarAIVS_3.pdf" title="Kalendár">Kalendár AIVS</a><br><a href="predmety_s.php" title="Zapísané predmety">Zapísané predmety</a><br><a href="svysledky.php" title="Študijné výsledky">Študijné výsledky</a><br><a href="spravy_s.php" title="Odkazy">Odkazy</a><p><a href="zaverecnep.php" title="Záverečné práce">Záverečné práce</a><p><a href="isic.php" title="Objednávanie prolongačných známok na budúci akademický rok">Prolongačné známky</a><br><a href="ubytovanie.php" title="Výber ubytovania">Ubytovanie</a><p><a href="sporty.php" title="Športy a telovýchovné sústredenia">Športy a sústredenia</a><br><p><a href="help.php" title="Pomoc">Pomoc</a><br><a href="http://docs.moodle.org/archive/sk/Hlavná_stránka" title="Návod na prácu s LMS Moodle" target="_blank">Návod na prácu s LMS Moodle</a></p>		</td>
+	</tr>
+	</table>
+	<br>
+	<table align="center" width="95%" cellspacing="0" cellpadding="0">
+	<tr><td height="25" width="220" class="menu3">&nbsp;Záver štúdia</td></tr>
+	<tr>
+		<td class="menu2">
+<ol type="square" style="margin-left:-25px">
+                <li><a href="download/doc/56_metodicke_usmernenie_2011_SVS.rtf">Metodické usmernenie MŠ č. 56/2011</a>
+    <ol type="square">
+     <li><a href="download/doc/56_metodicke_usmernenie_2011_SVS_pril1.rtf">príloha č. 1</a>
+     <li><a href="download/doc/56_metodicke_usmernenie_2011_SVS_pril2.rtf">príloha č. 2</a>
+     <li><a href="download/doc/56_metodicke_usmernenie_2011_SVS_pril3.rtf">príloha č. 3</a>
+    </ol>
+                <li><a href="http://kniznica.uniza.sk/ezp" target="novy">Evidencia záverečných prác</a><br>
+                <li><a href="https://nic.uniza.sk/nms/main/index/main" target="novy"><b>Aktivácia prístupu do EZP</b></a><br>
+                <li><a href="download/doc/Zapis_ss.rtf">Zápis o štátnych skúškach</a><br>
+                <li><a href="download/doc/fakulty.txt">Číselník fakúlt pre Zápis o štátnych skúškach</a><br>
+                <li><a href="download/doc/ezp_uzivatelsky_manual_local.pdf">EZP - používateľský manuál</a><br>
+               <li><a href="download/doc/1609.htm">Protokol o kontrole</a><br><br>
+</ol>
+                Vzor obalu a titulného listu
+                <ol type="square">
+                 <li><a href="download/doc/vyhlaska233.pdf">VYHLÁŠKA 233</a>                 
+                 <li><a href="download/doc/Smerniza103_2012_Zaverecne_prace.pdf">Smernica č. 103</a>                 
+                </ol>
+		</td>
+	</tr>
+	</table>
+	<br>
+	<table align="center" width="95%" cellspacing="0" cellpadding="0">
+	<tr><td height="25" width="220" class="menu3">&nbsp;Odkazy</td></tr>
+	<tr>
+		<td class="menu2"><a href="kontakt.php" title="Kontakt">Kontakt</a><br><a href="http://www.uniza.sk/stipendia" target="novy">Sociálne štipendium</a><br>
+			<a href="http://ukzu.uniza.sk/" target="novy">Univerzitná knižnica</a><br>
+			<!-- <a href="http://www.uniza.sk/intra-e/scripts/rozvrh/rozvrh_sql.asp?link_up_menu=006001000000000" target="novy">Rozvrh</a><br> -->
+            <a href="rozvrh.php">Rozvrh</a><br>
+			<a href="http://forum.uniza.sk" target="novy">Univerzitné diskusné fórum</a><br>	
+		</td>
+	</tr>
+	</table>
+   <br>	
+	<table align="center" width="95%" cellspacing="0" cellpadding="0">
+
+<tr>
+  <td>
+<br>
+
+<div><a href="http://karty.uniza.sk/" target="_blank"><img src="img/banner_itic.png" border="1" alt="Preukaz zamestnanca ITIC"></a></div>
+<br>
+Využívaš denne svoj preukaz ISIC plný študentských zliav a výhod? 
+Sleduj stránku <a href="http://www.isic.sk" target="_blank">www.isic.sk</a>, kde nájdeš zaujímavé aktuality, nové ISIC zľavy a každý týždeň novú súťaž. 
+<br><br>
+<b>Vašou univerzitnou lekárkou je:
+<br><br>
+MUDr. Yvetta Kurimská, s. r. o. - Health Care<br></b>
+Ulica vysokoškolákov 22 (internáty ŽU, blok H) prízemie<br>
+010 08 Žilina<br>
+kontakt: 041/56 52 134; 0918/994 907<br>
+E-mail: <a href="mailto:kurimska@dorm.uniza.sk">kurimska@dorm.uniza.sk</a><br><br>
+ 
+Ordinačné hodiny: (chorí)<br>
+pondelok - piatok od 07,00 do 12,00 h
+ <br><br>
+Pri vstupnej prehliadke si prineste zdravotnú dokumentáciu a preukaz poistenca.
+</td>
+</tr>
+	</table>
+	<br><br><br><br><br>
+
+</td>
+
+
+<td class="main"><br><br><br><br><div class="SRH-inp2" style="width:90%">FRI, Denné inžinierske štúdium, <b>Teória informácie</b>, 1 ročník,       Žilina</div><br><br><div style="float: left; width:70%"><table class="SRH-inp2"><tr class="hdr6"><td>Dátum/čas</td><td>Miestnosť</td><td>Skúšajúci</td><td>Kapacita</td><td>Počet <br>prihlásených</td><td>           Typ</td><td>Poznámka</td><td></td></tr><tr ><td>19.05.2015 / 08:00</td><td align="center">FRI A310  </td><td align="center">Stanislav Palúch</td><td align="center">40</td><td align="center">25</td><td>riadny termín</td><td> </td><td><a href="javascript: alert('Uzávierka termínu: 19.05.2015 07:00');">                           <img src="img/ikony/termin_oprava.gif" title="Prihlásenie na termín" border="0"></a><a href="terminy_s.php?pid=My0xNzA5MTktLTExMDQ2OA==">
+<img src="img/ikony/termin_zoznam.gif" title="Informácie o termíne" border="0"></a></td></tr><tr ><td>25.05.2015 / 08:00</td><td align="center">FRI A310  </td><td align="center">Stanislav Palúch</td><td align="center">40</td><td align="center">20</td><td>riadny termín</td><td> </td><td><a href="javascript: alert('Uzávierka termínu: 25.05.2015 07:00');">                           <img src="img/ikony/termin_oprava.gif" title="Prihlásenie na termín" border="0"></a><a href="terminy_s.php?pid=My0xNzA5MTktLTExMTI5NA==">
+<img src="img/ikony/termin_zoznam.gif" title="Informácie o termíne" border="0"></a></td></tr><tr style = "background-color: #D0FFD0; height: 20pt;"><td>01.06.2015 / 08:00</td><td align="center">FRI A310  </td><td align="center">Stanislav Palúch</td><td align="center">40</td><td align="center">18</td><td>riadny termín</td><td> </td><td><a href="javascript: alert('Uzávierka termínu: 01.06.2015 07:00');">                          <img src="img/ikony/termin_zrus.gif" title="Odhlásenie z termínu" border="0"></a><a href="terminy_s.php?pid=My0xNzA5MTktLTExMTMwNQ==">
+<img src="img/ikony/termin_zoznam.gif" title="Informácie o termíne" border="0"></a></td></tr><tr ><td>08.06.2015 / 08:00</td><td align="center">FRI A310  </td><td align="center">Stanislav Palúch</td><td align="center">40</td><td align="center">6</td><td>riadny termín</td><td> </td><td><a href="javascript: alert('Uzávierka termínu: 08.06.2015 07:00');">                           <img src="img/ikony/termin_oprava.gif" title="Prihlásenie na termín" border="0"></a><a href="terminy_s.php?pid=My0xNzA5MTktLTExMTMxMA==">
+<img src="img/ikony/termin_zoznam.gif" title="Informácie o termíne" border="0"></a></td></tr><tr ><td>16.06.2015 / 08:00</td><td align="center">FRI A310  </td><td align="center">Stanislav Palúch</td><td align="center">40</td><td align="center">9</td><td>riadny termín</td><td> </td><td><a href="javascript: alert('Uzávierka termínu: 16.06.2015 07:00');">                           <img src="img/ikony/termin_oprava.gif" title="Prihlásenie na termín" border="0"></a><a href="terminy_s.php?pid=My0xNzA5MTktLTExMTk5Mw==">
+<img src="img/ikony/termin_zoznam.gif" title="Informácie o termíne" border="0"></a></td></tr><tr ><td>22.06.2015 / 08:00</td><td align="center">FRI A310  </td><td align="center">Stanislav Palúch</td><td align="center">20</td><td align="center">13</td><td>riadny termín</td><td> </td><td><a href="javascript: alert('Uzávierka termínu: 22.06.2015 07:00');">                           <img src="img/ikony/termin_oprava.gif" title="Prihlásenie na termín" border="0"></a><a href="terminy_s.php?pid=My0xNzA5MTktLTExMTk5NA==">
+<img src="img/ikony/termin_zoznam.gif" title="Informácie o termíne" border="0"></a></td></tr><tr ><td>30.06.2015 / 08:00</td><td align="center">FRI A310  </td><td align="center">Stanislav Palúch</td><td align="center">20</td><td align="center">5</td><td>riadny termín</td><td> </td><td><a href="terminy_uid.php?pid=OS0xNzA5MTktMS0xMTI1NDc="                             ><img src="img/ikony/termin_oprava.gif" title="Prihlásenie na termín" border="0"></a><a href="terminy_s.php?pid=My0xNzA5MTktLTExMjU0Nw==">
+<img src="img/ikony/termin_zoznam.gif" title="Informácie o termíne" border="0"></a></td></tr></table></div><div style="float: left;"></td>
+</tr>
+</table>
+	
+	</td>
+</tr>
+</table>
+
+<br>
+<table><tr>
+<td>(c) Copyright 2004-2015 <a href="kontakt.php" class="text">Ústav informačných a komunikačných technológií</a></td>
+</tr></table>
+</body>
+</html>
