@@ -1,6 +1,6 @@
 Verzia 1.5
     * Filter predmetov, ktoré sú už spravené
-	* Menšie fixy zobrazenie
+    * Menšie fixy zobrazenia
 Verzia 1.4
     * Opravené autoscrool na spodok v zozname prihlásených študentov a v changelogu
     * GUI vylepšenia

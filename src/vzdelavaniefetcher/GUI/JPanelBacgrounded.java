@@ -39,7 +39,7 @@ public class JPanelBacgrounded extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         
-        if (aBackground == null || (aBackground.getWidth() != getWidth() && aBackground.getHeight() != getHeight())) {
+        if (aBackground == null || (aBackground.getWidth() != getWidth() || aBackground.getHeight() != getHeight())) {
             try {  
                 aBackground = ImageIO.read(ResourceManager.getLocalResource(aImg));
 

@@ -7,6 +7,9 @@
 package vzdelavaniefetcher;
 
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -31,4 +34,15 @@ public class StudijneVysledky {
         }
         return false;
     }
+	
+	public Map<String, List<StudijnyVysledok>> getByYear() {
+		Map<String, List<StudijnyVysledok>> tmp = new HashMap<>();
+		for (StudijnyVysledok value : aVysledky.values()) {
+			if (!tmp.containsKey(value.getAkademickyRok())) {
+				tmp.put(value.getAkademickyRok(), new LinkedList<StudijnyVysledok>());
+			}
+			tmp.get(value.getAkademickyRok()).add(value);
+		}
+		return tmp;
+	}
 }
