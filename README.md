@@ -1,5 +1,7 @@
 Uniza Kalendár skúšok
 =====================
+
+[![Join the chat at https://gitter.im/Unlink/Uniza-Kalendar-Skusok](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Unlink/Uniza-Kalendar-Skusok?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Build Status](https://travis-ci.org/Unlink/Uniza-Kalendar-Skusok.svg)](https://travis-ci.org/Unlink/Uniza-Kalendar-Skusok)
 
 Nástroj na správu skúškových termínov študentov Žilinskej univerzity
