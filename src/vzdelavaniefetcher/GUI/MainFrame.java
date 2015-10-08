@@ -5,6 +5,7 @@
 package vzdelavaniefetcher.GUI;
 
 import com.unlink.common.bugTrackerLogger.BugTrackingLoger;
+import dagger.ObjectGraph;
 import java.awt.Desktop;
 import java.awt.GridLayout;
 import java.awt.event.KeyEvent;
@@ -17,12 +18,14 @@ import java.util.prefs.Preferences;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import vzdelavaniefetcher.FetchException;
-import vzdelavaniefetcher.Fetcher;
+import vzdelavaniefetcher.Client;
 import vzdelavaniefetcher.FetcherListner;
 import vzdelavaniefetcher.Predmet;
 import vzdelavaniefetcher.StudijneVysledky;
 import vzdelavaniefetcher.tools.ResourceManager;
 import vzdelavaniefetcher.tools.SimpleSerializedEncrypredStringMap;
+import javax.inject.Inject;
+import vzdelavaniefetcher.di.VzdelavanieFetcherModule;
 
 import static vzdelavaniefetcher.tools.ThreadingTools.runInThreadingPool;
 import static vzdelavaniefetcher.tools.ThreadingTools.runOnUIThread;
@@ -42,6 +45,9 @@ public class MainFrame extends javax.swing.JFrame implements FetcherListner {
     private final SimpleSerializedEncrypredStringMap aStoredPass;
 
     private final StudijneVysledky aVysledky;
+	
+	@Inject
+	protected Client aFetcher;
 
     /**
      * Creates new form MainFrame
@@ -307,7 +313,7 @@ public class MainFrame extends javax.swing.JFrame implements FetcherListner {
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         if (aKalendar != null) {
-            new Vyhladavanie(this, aKalendar.getPredmety()).setVisible(true);
+            new Vyhladavanie(this, aKalendar.getPredmety(), aFetcher).setVisible(true);
         }
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
@@ -328,7 +334,7 @@ public class MainFrame extends javax.swing.JFrame implements FetcherListner {
             @Override
             public void run() {
                 //skusime sa lognut
-                if (Fetcher.dajInstanciu().login(meno, password)) {
+                if (aFetcher.login(meno, password)) {
                     //Uložíme uspešný login
                     saveLogin(meno, password, savePassword);
 
@@ -344,10 +350,10 @@ public class MainFrame extends javax.swing.JFrame implements FetcherListner {
 
                     try {
                         //Fetchnutie vysledkov
-                        Fetcher.dajInstanciu().featch(aVysledky, MainFrame.this);
+                        aFetcher.featch(aVysledky, MainFrame.this);
                         //Fetcheanie infa o predmetoch
-                        List<Predmet> predmety = Fetcher.dajInstanciu().featchPredmety(MainFrame.this);
-                        aKalendar = new Kalendar(predmety, Fetcher.dajInstanciu().featchUserName(), aVysledky);
+                        List<Predmet> predmety = aFetcher.featchPredmety(MainFrame.this);
+                        aKalendar = new Kalendar(predmety, aFetcher.getUserName(), aVysledky, aFetcher);
                         runOnUIThread(new Runnable() {
                             @Override
                             public void run() {
@@ -476,7 +482,9 @@ public class MainFrame extends javax.swing.JFrame implements FetcherListner {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MainFrame().setVisible(true);
+				ObjectGraph objectGraph = ObjectGraph.create(new VzdelavanieFetcherModule());
+				MainFrame coffeeApp = objectGraph.get(MainFrame.class);
+				coffeeApp.setVisible(true);
             }
         });
     }

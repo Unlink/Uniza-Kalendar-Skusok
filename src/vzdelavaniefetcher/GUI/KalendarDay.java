@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.JSeparator;
 import vzdelavaniefetcher.FetchException;
-import vzdelavaniefetcher.Fetcher;
+import vzdelavaniefetcher.Client;
 import vzdelavaniefetcher.Termin;
 import vzdelavaniefetcher.tools.GUISwingTools;
 import vzdelavaniefetcher.tools.ResourceManager;
@@ -28,17 +28,20 @@ import vzdelavaniefetcher.tools.ResourceManager;
 public class KalendarDay extends javax.swing.JPanel {
 
     private Callback aCallback;
+	
+	private Client aFetcher;
     
-    public KalendarDay(final Termin t) {
-        this(t, true);
+    public KalendarDay(final Termin t, Client f) {
+        this(t, true, f);
     }
 
-    public KalendarDay(final Termin t, boolean prihlasovanie) {
-        this(t, true, null);
+    public KalendarDay(final Termin t, boolean prihlasovanie, Client f) {
+        this(t, true, null, f);
     }
 
-    public KalendarDay(final Termin t, boolean prihlasovanie, Callback paCallback) {
-        if (paCallback != null)
+    public KalendarDay(final Termin t, boolean prihlasovanie, Callback paCallback, Client f) {
+        aFetcher = f;
+		if (paCallback != null)
             aCallback = paCallback;
         else 
             aCallback = new Callback() {
@@ -73,7 +76,7 @@ public class KalendarDay extends javax.swing.JPanel {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                new Info(null, t).setVisible(true);
+                new Info(null, t, aFetcher).setVisible(true);
             }
         });
         menu.add(info);
@@ -94,7 +97,7 @@ public class KalendarDay extends javax.swing.JPanel {
                     int res = JOptionPane.showConfirmDialog(KalendarDay.this, "Skutočne chcete vykonať túto akciu?", "Potvrd", JOptionPane.YES_NO_OPTION);
                     if (res == JOptionPane.OK_OPTION) {
                         try {
-                            JOptionPane.showMessageDialog(KalendarDay.this, Fetcher.dajInstanciu().terminAkcia(t), "Informácia", JOptionPane.INFORMATION_MESSAGE);
+                            JOptionPane.showMessageDialog(KalendarDay.this, aFetcher.terminAkcia(t), "Informácia", JOptionPane.INFORMATION_MESSAGE);
                         } catch (FetchException ex) {
                             GUISwingTools.displayErrorMessage(KalendarDay.this, ex.getMessage());
                         }

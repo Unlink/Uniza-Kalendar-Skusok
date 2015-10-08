@@ -10,7 +10,7 @@ import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import vzdelavaniefetcher.FetchException;
-import vzdelavaniefetcher.Fetcher;
+import vzdelavaniefetcher.Client;
 import vzdelavaniefetcher.Predmet;
 import vzdelavaniefetcher.Termin;
 import vzdelavaniefetcher.tools.GUISwingTools;
@@ -24,16 +24,19 @@ import static vzdelavaniefetcher.tools.ThreadingTools.runOnUIThread;
 public class Vyhladavanie extends javax.swing.JDialog {
 
     private final List<Predmet> aPredmety;
+	
+	private Client aFetcher;
     
     /**
      * Creates new form Vyhladavanie
      * @param parent
      * @param aPredmety
      */
-    public Vyhladavanie(java.awt.Frame parent, final List<Predmet> aPredmety) {
+    public Vyhladavanie(java.awt.Frame parent, final List<Predmet> aPredmety, Client f) {
         super(parent, false);
         initComponents();
         this.aPredmety = aPredmety;
+		aFetcher = f;
         jTextField2.setEnabled(false);
         jButton1.setEnabled(false);
         jLabel2.setText("Nahrávam zoznamy");
@@ -53,7 +56,7 @@ public class Vyhladavanie extends javax.swing.JDialog {
                         for(Termin t:p){
                             if (t.getDatum().compareTo(new Date()) == 1){
                                 if (t.getPrihlasenyStudenti() == null){
-                                    Fetcher.dajInstanciu().featch(t, null);
+                                    aFetcher.featch(t, null);
                                 }
                             }
                         }
@@ -182,12 +185,12 @@ public class Vyhladavanie extends javax.swing.JDialog {
             GUISwingTools.displayErrorMessage(this, "Zabudli ste zadať meno, ktoré sa ma vyhľadať");
         }
         else {
-            Kalendar.generujZoznamPredmetov(jPanel4, aPredmety, new Kalendar.TerminyFilter() {
+            /*Kalendar.generujZoznamPredmetov(jPanel4, aPredmety, new Kalendar.TerminyFilter() {
                 @Override
                 public boolean filter(Termin termin) {
                     return (termin.getDatum().compareTo(new Date()) == 1 && termin.getPrihlasenyStudenti().toLowerCase().contains(jTextField2.getText().toLowerCase()));
                 }
-            }, false, null);
+            }, false, null);*/
             
             if (jPanel4.getComponentCount() == 0) {
                 JLabel mm = new JLabel("No Results");

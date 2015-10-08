@@ -10,7 +10,7 @@ import java.util.Locale;
 import javax.swing.ImageIcon;
 import javax.swing.text.DefaultCaret;
 import vzdelavaniefetcher.FetchException;
-import vzdelavaniefetcher.Fetcher;
+import vzdelavaniefetcher.Client;
 import vzdelavaniefetcher.Termin;
 import vzdelavaniefetcher.tools.ResourceManager;
 
@@ -23,15 +23,18 @@ import static vzdelavaniefetcher.tools.ThreadingTools.*;
 public class Info extends javax.swing.JDialog {
 
     private final Termin termin;
+	
+	private Client aFetcher;
     
     /**
      * Creates new form Info
      * @param parent
      * @param t
      */
-    public Info(java.awt.Frame parent, Termin t) {
+    public Info(java.awt.Frame parent, Termin t, Client f) {
         super(parent, false);
         initComponents();
+		aFetcher = f;
         setLocationRelativeTo(parent);
         
         if (t.getPrihlasenyStudenti() != null){
@@ -237,7 +240,7 @@ public class Info extends javax.swing.JDialog {
             public void run() {
                 String text;
                 try {
-                    Fetcher.dajInstanciu().featch(termin, null);
+                    aFetcher.featch(termin, null);
                     text = termin.getPrihlasenyStudenti();
                 } catch (FetchException ex) {
                     text = "Nepodarilo sa načítat zoznam prihlásených\n"+ex;

@@ -40,7 +40,6 @@ public class SimpleSerializedMappedSet<K, V> {
                 aData = (Map<K, Set<V>>) ois.readObject();
             } catch (IOException | ClassNotFoundException ex) {
                 aData = new HashMap<>();
-                ex.printStackTrace();
             }
         }
         else {

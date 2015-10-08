@@ -17,6 +17,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import vzdelavaniefetcher.Client;
 import vzdelavaniefetcher.Predmet;
 import vzdelavaniefetcher.StudijneVysledky;
 import vzdelavaniefetcher.Termin;
@@ -31,6 +32,7 @@ public class Kalendar extends javax.swing.JPanel {
     private List<Predmet> aPredmety;
     private StudijneVysledky aStudijneVysledky;
     private boolean aLenNeukoncenePredmety;
+	private Client aFetcher;
 
     /**
      * Creates new form Kalendar
@@ -38,16 +40,17 @@ public class Kalendar extends javax.swing.JPanel {
      * @param predms
      * @param username
      */
-    public Kalendar(List<Predmet> predms, String username) {
-        this(predms, username, null);
+    public Kalendar(List<Predmet> predms, String username, Client f) {
+        this(predms, username, null, f);
     }
 
-    public Kalendar(List<Predmet> paPredmety, String paFeatchUserName, StudijneVysledky paVysledky) {
+    public Kalendar(List<Predmet> paPredmety, String paFeatchUserName, StudijneVysledky paVysledky, Client f) {
         initComponents();
         aPredmety = paPredmety;
         jLabel4.setText(paFeatchUserName);
         aStudijneVysledky = paVysledky;
         aLenNeukoncenePredmety = true;
+		aFetcher = f;
         regenerate();
     }
 
@@ -246,7 +249,7 @@ public class Kalendar extends javax.swing.JPanel {
      * @param prihlasovanie Zobrazovanie prihlasovacieho tlačidla
      * @param callback Callback, po prihlasení/odhlaseni predmetu
      */
-    public static void generujZoznamPredmetov(JPanel panel, List<Predmet> predmety, TerminyFilter filter, boolean prihlasovanie, KalendarDay.Callback callback) {
+    public void generujZoznamPredmetov(JPanel panel, List<Predmet> predmety, TerminyFilter filter, boolean prihlasovanie, KalendarDay.Callback callback) {
         List<Termin> terminy = new ArrayList<Termin>();
         for (Predmet p : predmety) {
             for (Termin t : p) {
@@ -274,7 +277,7 @@ public class Kalendar extends javax.swing.JPanel {
 				mm.setAlignmentX(Component.CENTER_ALIGNMENT);
                 panel.add(mm);
             }
-            panel.add(new KalendarDay(t, prihlasovanie, callback));
+            panel.add(new KalendarDay(t, prihlasovanie, callback, aFetcher));
         }
         panel.validate();
         panel.repaint();
