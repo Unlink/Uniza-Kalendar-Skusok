@@ -1,3 +1,5 @@
+Verzia 1.6
+	* Zobrazovač študíjnych výsledkov
 Verzia 1.5
     * Filter predmetov, ktoré sú už spravené
     * Menšie fixy zobrazenia
